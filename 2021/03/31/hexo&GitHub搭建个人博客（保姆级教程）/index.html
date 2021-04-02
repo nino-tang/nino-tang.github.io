@@ -271,7 +271,70 @@
 </div>
 <div class="article-content">
     <div id="article" class="content">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本博客搭建于2021年3月30日，在网上看了很多的教程发现很多的教程没有讲细节，从而导致很多萌新（我）搭建不成功并且不容易找出其中的原因。下面我将详细的介绍我的搭建过程并着重提示其中容易被忽略的细节。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本博客搭建于2021年3月30日，在网上看了很多的教程发现很多的教程没有讲细节和中间出现问题的解决方法，从而导致很多萌新（我）搭建不成功并且不容易找出其中的原因。下面我将详细的介绍我的搭建过程并着重提示其中容易被忽略的细节。</p>
+<p><strong>注：</strong>此博客引用和借鉴了其他大佬的博客内容，链接和作者会在结尾标注。</p>
+<p>下面是我的博客主页</p>
+<p><img src="https://i.loli.net/2021/04/01/BsKf4VtHZqSoEpn.png" alt="image-20210401111245235"></p>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><h3 id="1、安装node"><a href="#1、安装node" class="headerlink" title="1、安装node"></a>1、安装node</h3><h4 id="1）通过nvm安装node-js-需要安装10-0以上的版本"><a href="#1）通过nvm安装node-js-需要安装10-0以上的版本" class="headerlink" title="1）通过nvm安装node.js (需要安装10.0以上的版本)"></a>1）通过nvm安装node.js (需要安装10.0以上的版本)</h4><p><strong>NVM：</strong>node.js version manager,用来管理node版本。</p>
+<ol>
+<li>首先去<a target="_blank" rel="noopener" href="https://github.com/coreybutler/nvm-windows/releases">NVM官网</a>下载安装包：<img src="https://i.loli.net/2021/04/01/5AjqrLwyli4b7GJ.png" alt="image-20210401112048774"></li>
+</ol>
+<p>进不去GitHub需要科学上网</p>
+<ol start="2">
+<li>下载下来后解压到你需要安装的目录下：<img src="https://i.loli.net/2021/04/01/WfU6D5YuV7Jpn9A.png" alt="image-20210401112806302"></li>
+</ol>
+<ul>
+<li><p>点击上面的install.cmd文件，会生成一个setting.txt文件。里面填充以下内容</p>
+<figure class="highlight taggerscript"><table><tr><td class="code"><pre><code class="hljs taggerscript">root: F:<span class="hljs-symbol">\d</span>ev<span class="hljs-symbol">\n</span>vm            <br>path: F:<span class="hljs-symbol">\d</span>ev<span class="hljs-symbol">\n</span>odejs<br>arch: 64<br>proxy<br></code></pre></td></tr></table></figure>
+
+<p>上方内容的解释：</p>
+<ul>
+<li> root 配置为：当前 nvm.exe 所在的目录</li>
+<li>path 配置为：node 快捷方式所在的目录</li>
+<li>arch 配置为：当前操作系统的位数（32/64）</li>
+<li>proxy 不用配置</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>配置环境变量<img src="https://i.loli.net/2021/04/01/WuL7MB9gFdJn8YZ.png" alt="image-20210401113759533"><img src="https://i.loli.net/2021/04/01/ZyctRWU8gPek6vA.png" alt="image-20210401113827087"> <img src="https://i.loli.net/2021/04/01/8fKa9oEOXYQySUI.png" alt="image-20210401113956379"></li>
+</ol>
+<ul>
+<li><code>NVM_HOME</code> = <code>D:\web\nvm</code>（当前 nvm.exe 所在目录）</li>
+<li><code>NVM_SYMLINK</code> = <code>D:\web\nodejs</code> （node 快捷方式所在的目录）</li>
+<li>PATH += <code>;  %NVM_HOME% ; %NVM_SYMLINK%</code> (这里的；根据你的系统版本填写 )</li>
+</ul>
+<p>配置成功后重启资源管理器</p>
+<ol start="4">
+<li><p><strong>验证是否成功：</strong>(cmd命令中输入命令)</p>
+<ul>
+<li><p>输入nvm命令查看是否配置成功 (如提示不是内部或外部命令则检查知否配置正确)</p>
+</li>
+<li><p><img src="https://i.loli.net/2021/04/01/wjNBLz51ocXe69a.png" alt="image-20210401114559139"></p>
+</li>
+<li><p>由于nvm默认的下载地址<a href="https://link.zhihu.com/?target=http://nodejs.org/dist/">http://nodejs.org/dist/</a>是外国外服务器，国内很慢可以使用淘宝的镜像。找到刚刚解压的nvm文件夹下的settings.txt文件在其后加入这两句话，并保存</p>
+</li>
+<li><pre><code>node_mirror: https://npm.taobao.org/mirrors/node/
+npm_mirror: https://npm.taobao.org/mirrors/npm/
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><code class="hljs crmsh"><br>* 然后可以开始下载对应的<span class="hljs-keyword">node</span><span class="hljs-title">版本，推荐下载一个稳定版本和一个最新的版本下载最新版本直接执行指令nvm</span> install latest就行了，稳定版本自己去官网找然后按nvm install 后面加版本号，例如nvm install <span class="hljs-number">12.18</span>.<span class="hljs-number">0</span> 就能下载对应的<span class="hljs-keyword">node</span><span class="hljs-title">版本</span><br><span class="hljs-title"></span><br><span class="hljs-title">  * 输入 `nvm</span> ls`，查看已安装的所有 <span class="hljs-keyword">node</span> <span class="hljs-title">版本。</span><br><span class="hljs-title">  * 输入 `nvm</span> -v`，查看 已安装的 nvm 版本。<br>  * 输入 `<span class="hljs-keyword">node</span> <span class="hljs-title">-v</span>`，查看正在使用的 <span class="hljs-keyword">node</span> <span class="hljs-title">版本。</span><br><span class="hljs-title">  * 输入nvm</span> use 版本号即可切换对应的版本。 如输入命令nvm use <span class="hljs-number">12.18</span>.<span class="hljs-number">0</span>后按nvm ls后<span class="hljs-keyword">node</span><span class="hljs-title">的版本前带有*号即代表当前使用的node</span>版本<br><br>由于npm的下载地址为[https://registry.npmjs.org/](https://link.zhihu.com/?<span class="hljs-attr">target=</span>https%<span class="hljs-number">3</span>A//registry.npmjs.org/)是国外服务器，国内很慢可以使用淘宝的镜像执行下面的命令即可**<br><br></code></pre></td></tr></table></figure>
+// 配置地址
+npm config set registry https://registry.npm.taobao.org
+// 安装
+npm install
+//设置为原来的地址
+npm config set registry https://registry.npmjs.org/
+</code></pre>
+</li>
+</ul>
+<p> 参考链接：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000011114680">安装npm，nvm，node</a></p>
+</li>
+</ol>
+<h4 id="2-直接下载安装node-js"><a href="#2-直接下载安装node-js" class="headerlink" title="2)直接下载安装node.js"></a>2)直接下载安装node.js</h4><ol>
+<li>去<a target="_blank" rel="noopener" href="https://nodejs.org/en/">官网</a>下载安装包<img src="https://i.loli.net/2021/04/01/xvAKXs2pkB7ql6R.png" alt="image-20210401115923501"></li>
+<li>傻瓜式一直下一步(要注意安装位置)</li>
+<li>配置环境变量<img src="https://i.loli.net/2021/04/01/p9XV71c6HBd8Ila.png" alt="image-20210401120727184"><strong>我的放了其他文件请以自己下载的文件目录为准</strong><img src="https://i.loli.net/2021/04/01/vpMdDcKL2ikmn7u.png" alt="image-20210401120557415"></li>
+<li><strong>配置npm在安装全局模块时的路径和缓存cache的路径</strong></li>
+</ol>
 
     </div>
 </div>
